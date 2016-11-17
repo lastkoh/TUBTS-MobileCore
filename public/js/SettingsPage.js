@@ -6,24 +6,31 @@ var SettingsPage = (function() {
 
   function bindUIActions() {
     UI.notify.on('change', function() {
-      Android.setSubscription($(this).is(':checked'));
-      localStorage.setItem("isMute", $(this).is(':checked'));
-    })
-    
-     UI.btnClearCache.on('click', function() {
-      localStorage.setItem("isMute",null);
+      Android.setSubscription(this.checked);
+      if (this.checked) {
+        localStorage.setItem("isMute", "true");
+      } else {
+        localStorage.setItem("isMute", "false");
+      }
+    });
+
+    UI.btnClearCache.on('click', function() {
+      localStorage.clear();
       Materialize.toast('Cache was cleared!', 4000);
-    })
+    });
   }
 
   return {
     init: function() {
-      console.log("init:" + localStorage.getItem("isMute"));
       if (localStorage.getItem("isMute") == null) {
-        localStorage.setItem("isMute", true);
+        localStorage.setItem("isMute", "true");
       }
-      
-     UI.notify.prop(':checked',localStorage.getItem("isMute"));
+
+      if (localStorage.getItem("isMute") == "true") {
+        UI.notify.prop('checked', true);
+      } else {
+        UI.notify.prop('checked', false);
+      }
       bindUIActions();
     }
   }
