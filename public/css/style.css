@@ -1,0 +1,62 @@
+/* html, body{
+	 font-family: 'Roboto', 'Helvetica', sans-serif;
+} */
+
+body {
+	overflow: hidden;
+}
+
+.select-wrapper input.select-dropdown {
+	font-size: 1.2rem;
+	margin: 0px 0px 5px 0px;
+}
+
+.hidden {
+	display: none;
+}
+
+#route_label {
+	padding-left: 25px;
+	padding-top: 15px;
+}
+
+#map {
+	width: 100vw;
+	height: 60vh;
+}
+
+#eta_panel {
+	width: 100vw;
+	height: 100vh;
+}
+
+#announcements_list {
+	height: 80vh;
+}
+
+.pagination {
+	display: inline-block;
+}
+
+.row {
+	margin-bottom: 10px;
+}
+
+#btn_info {
+	padding-left: 30px;
+	padding-top: 15px;
+}
+
+.modal {
+	width: 90% !important;
+	max-height: 80% !important;
+}
+
+.collapsible-header p {
+	line-height: 2rem !important;
+	min-height: 2rem !important;
+}
+
+.resources {
+	padding-left: 30px;
+}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,user-scalable=0">
+  <title>TUBTS</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link type="text/css" rel="stylesheet" href="bower_components/materialize/bin/materialize.css" media="screen,projection" />
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/materialize/bin/materialize.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHRK3aQGkJwuPT5U7jiA3Jhhqko5etQi0&libraries=geometry"></script>
+  <script src="https://apis.google.com/js/api.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper red darken-4">
+      <a id="ab_title" href="#!" class="brand-logo">Home</a>
+      <a href="#" data-activates="side_nav" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul id="btn_refresh" class="right">
+        <li><a href="#!"><i class="material-icons">refresh</i></a></li>
+      </ul>
+
+      <ul id="side_nav" class="side-nav">
+        <li>
+          <a id="sidenav_label_home" class="red-text text-darken-4 waves-effect" href="#">
+            <i id="sidenav_icon_home" class="material-icons red-text text-darken-4">home</i>Home
+          </a>
+        </li>
+        <li>
+          <a id="sidenav_label_announcement" class="waves-effect" href="#">
+            <i id="sidenav_icon_announcement" class="material-icons">announcement</i>Announcement</a>
+        </li>
+        <li>
+          <a id="sidenav_label_rs" class="waves-effect" href="#">
+            <i id="sidenav_icon_rs" class="material-icons">link</i>Resources</a>
+        </li>
+        <li>
+          <a id="sidenav_label_settings" class="waves-effect" href="#">
+            <i id="sidenav_icon_settings" class="material-icons">settings</i>Settings</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="home_page">
+    <div class="row">
+      <div id="route_label" class="col s2">
+        <h5 class="flow-text"><b>Route:</b></h5>
+      </div>
+      <div id="route_dropdown" class="col s6 push-s1 input-field">
+        <select id="selector"></select>
+      </div>
+      <div id="btn_info" class="col s2 push-s1">
+        <a id="btn_trip" class="btn-floating btn waves-effect waves-light red"><i class="material-icons">info</i></a>
+      </div>
+    </div>
+
+    <div class="z-depth-1" id="map"></div>
+
+    <div id="eta_panel" class="section">
+      <div class="row">
+        <div class='col s7 push-s1'>
+          <h6 class="red-text text-darken-1"><b>Next Stop</b></h6>
+          <p><b id="next_stop">Opposite Sunway Pyramid (pedestrian bride)</b></p>
+        </div>
+        <div class='col s3 push-s1'>
+          <h6 class="red-text text-darken-1"><b>ETA</b></h6>
+          <h5 id="eta_min">31 <sub class="grey-text text-darken-3">mins</sub></h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="announcement_page" class="hidden">
+    <ul id="announcements_list" class="z-depth-1 collection">
+    </ul>
+
+    <div id="page_numbers" class="container center-align">
+      <ul id="pages_list" class="pagination">
+      </ul>
+    </div>
+  </div>
+
+  <div id="resources_page" class="hidden">
+    <div class="z-depth-3 collection">
+      <a href="http://studentcentral.taylors.edu.my/Documents/Shuttle%20Bus%20Schedule%202016.pdf" class="collection-item"><h5><b>Taylor's University Shuttle Bus Schedule <i class="grey-text small material-icons">link</i></b></h5></a>
+      <a href="http://studentcentral.taylors.edu.my/Documents/Shuttle%20Bus%20Service%20for%20TU%20(Service%20Guideline)%20V1.01.16Nov2015.pdf" class="collection-item"><h5><b>Taylor's University Shuttle Bus Service Guidelines <i class="grey-text small material-icons">link</i></b></h5></a>
+    </div>
+  </div>
+
+  <div id="settings_page" class="hidden">
+    <div class="section z-depth-4">
+      <div class="row">
+        <div class="col s7 push-s1">
+          <p class="flow-text"><b>Mute Notifications</b></p>
+        </div>
+        <dir class="col s3 push-s1">
+          <div class="switch">
+            <label class="flow-text">
+                <input id="notify" type="checkbox">
+                <span class="lever"></span>
+              </label>
+          </div>
+        </dir>
+      </div>
+
+      <div class="row">
+        <div class="col s8 push-s3">
+          <a id="btn_clear_cache" class="waves-effect waves-light btn-large red darken-4"><i class="material-icons left">delete</i>Clear Cache</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div id="notice_modal_content" class="modal-content">
+      <!--           <h5>Modal Header</h5>
+          <p>A bunch of text</p> -->
+    </div>
+  </div>
+
+  <div id="route_info_modal" class="modal">
+    <div id="route_info_modal_content" class="modal-content">
+      <div class="section">
+        <h4 id="route_info_title"><b>TU1A</b></h4>
+        <h6>
+              <b id="service_days">Available:
+<!--               <span class="red-text text-darken-4">Mon </span>
+              <span class="grey-text">Tues </span>
+              <span class="grey-text">Wed </span>
+              <span class="grey-text">Thurs </span>
+              <span class="grey-text">Fri </span>
+              <span class="grey-text">Sat </span>
+              <span class="grey-text">Sun </span> -->
+              </b>
+           </h6>
+      </div>
+
+      <ul id="stops_list" class="collapsible" data-collapsible="accordion">
+        <!--         <li>
+          <div class="collapsible-header">
+            <span class="new badge" data-badge-caption=""><b>1</b></span>
+            <h6>
+              <p class="flow-text">Opposite Sunway Pyramid (pedestrian bride)</p>
+            </h6>
+          </div>
+          <div class="collapsible-body">
+            <img src="http://i.imgur.com/2xoIfjQ.png" style="max-width: 100%">
+          </div>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+
+  <script src="js/HomePage.js"></script>
+  <script src="js/NavBar.js"></script>
+  <script src="js/NoticesPage.js"></script>
+  <script src="js/SettingsPage.js"></script>
+  <script src="js/index.js"></script>
+</body>
+
+</html>
