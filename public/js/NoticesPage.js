@@ -1,5 +1,5 @@
 var NoticesPage = (function() {
-  var API_URL = "https://fyp-postgrest.herokuapp.com/";
+
   var ITEMS_PER_PAGE = 6;
 
   var UI = {
@@ -17,7 +17,7 @@ var NoticesPage = (function() {
     var numPages = Math.ceil((numItems / ITEMS_PER_PAGE));
     for (var i = 0; i < numPages; i++) {
       if (i === 0) {
-        UI.pagination.append('<li class="active"><a href="#!">' + (i + 1) + '</a></li>');
+        UI.pagination.append('<li class="active waves-effect"><a href="#!">' + (i + 1) + '</a></li>');
       } else {
         UI.pagination.append('<li class="waves-effect"><a href="#!">' + (i + 1) + '</a></li>');
       }
@@ -45,7 +45,7 @@ var NoticesPage = (function() {
 
   function bindUIActions() {
     UI.pagination.on('click', 'li', function() {
-      if (currPgNum !== parseInt($(this).text())) {
+      if ((currPgNum !== parseInt($(this).text())) && ($(this).text() !== "chevron_left") && ($(this).text() !== "chevron_right")) {
         changePage(parseInt($(this).text()));
       }
     });

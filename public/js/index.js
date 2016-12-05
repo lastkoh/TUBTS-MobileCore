@@ -1,3 +1,4 @@
+var API_URL = "https://fyp-postgrest.herokuapp.com/";
 $(window).ready(function() {
   // code here
   $('.button-collapse').sideNav({

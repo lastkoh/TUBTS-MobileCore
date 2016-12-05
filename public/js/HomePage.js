@@ -1,9 +1,5 @@
 var HomePage = (function() {
-  //   var API_URL = "https://fyp-postgrest.herokuapp.com/";
-
   var API = {
-    URL: "https://fyp-postgrest.herokuapp.com/",
-
     ROUTE: {
       TABLE: "routes",
       ROUTE_ID: "route_id",
@@ -245,7 +241,7 @@ var HomePage = (function() {
         'routes_stops.order': 'sequence.asc'
       };
 
-      $.getJSON(API.URL + "routes", payload, function(json) {
+      $.getJSON(API_URL + "routes", payload, function(json) {
         UI.selector.empty();
         for (var i = 0; i < json.length; i++) {
           routesData[json[i].route_id] = json[i];

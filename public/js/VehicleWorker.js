@@ -1,4 +1,4 @@
-var API_URL = "https://fyp-postgrest.herokuapp.com/simulation"
+var API_URL = "https://fyp-postgrest.herokuapp.com/"
 
 function parseTimeStr(timeStr) {
   var d = new Date();
@@ -32,7 +32,7 @@ onmessage = function(e) {
     'order': 'trigger_time.asc',
     'trigger_time': 'eq.' + toTimeStr(new Date())
   };
-  xhr.open("GET", API_URL + toStrParams(payload), true);
+  xhr.open("GET", API_URL + "simulation" + toStrParams(payload), true);
   xhr.onload = function(e) {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
